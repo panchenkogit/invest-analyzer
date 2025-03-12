@@ -1,0 +1,35 @@
+# Python virtual environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.iml
+
+# Лог-файлы
+logs/
+*.log
+debug.log
+
+# Переменные окружения
+.env
+
+# Кэш pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Docker
+docker-compose.override.yml
+*.pid
+
+# Базы данных
+*.sqlite3
+*.db
+
+# Kafka
+kafka-logs/
