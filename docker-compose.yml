@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  claster_servis:
+    build:
+      context: .
+      dockerfile: claster_servis/Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - mongodb
+    volumes:
+      - ./common:/app/common  # Монтируем папку common в контейнер
+
+  data_collector:
+    build:
+      context: .
+      dockerfile: data_collector/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - redis
+      - mongodb
+    volumes:
+      - ./common:/app/common  # Монтируем папку common в контейнер
+
+  redis:
+    image: redis:alpine  # Указываем образ Redis
+    ports:
+      - "6379:6379"   # Порт Redis
+
+  mongodb:
+    image: mongo:latest  # Указываем образ MongoDB
+    ports:
+      - "27017:27017"  # Порт MongoDB
+    volumes:
+      - mongodb_data:/data/db  # Подключаем volume для хранения данных
+
+volumes:
+  mongodb_data:
+    driver: local
